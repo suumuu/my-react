@@ -1,15 +1,23 @@
-
-import { Menu } from 'lucide-react'
 import './App.css'
 import CustomNavbar from './components/CustomNavbar'
-import Navbar from './components/Navbar'
+import { Suspense } from 'react'
+import PricingOptions from './components/PricingOptions'
+
+const pricingPromise = fetch ('./pricingData.json').then( res => res.json())
 function App() {
 
   return (
     <>
-<Menu></Menu>
+    <header>
     <CustomNavbar></CustomNavbar>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
+      </header>
+
+      <main>
+        <Suspense fallback = {<h2>Loading...</h2>}>
+          <PricingOptions pricingPromise= {pricingPromise}></PricingOptions>
+        </Suspense>
+      </main>
     </>
   )
 }
